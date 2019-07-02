@@ -6,6 +6,7 @@ import java.io.*;
 
 public class MapeamentoBinaryTree {
 
+
     private BinaryTree cacheTree = new BinaryTree();
 //    private HashMap<Integer, BinaryTree> cacheTree = new HashMap<>();
     private final String filename = "binaryTree.delucca";

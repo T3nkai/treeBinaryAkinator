@@ -52,90 +52,96 @@ public class NodeBinary implements Serializable {
     }
 
 
-    public boolean Question(NodeBinary node) {
+    public boolean Question(NodeBinary node, NodeBinary root) {
+        if (root == null) {
+            root = node;
+        }
         Scanner scan = new Scanner(System.in);
-
-        int exit = 0;
+        int exit = -1;
+        System.out.println("Pense em um animal?");
+        System.out.println("O animal que voce pensou " + node.getQuestion());
         do {
+            System.out.println("Digite Sim, Nao ou Sair como resposta");
+            scan.hasNextLine();
+            resposta = scan.nextLine();
+            exit = (resposta.equalsIgnoreCase("sair")) ? -1 : 1;
 
-            System.out.println("Pense em um animal?");
-            System.out.println("O animal que voce pensou " + node.getQuestion());
-            do {
-                System.out.println("Digite Sim, Nao ou Sair como resposta");
-                scan.hasNextLine();
-                resposta = scan.nextLine();
-                exit = (resposta.equalsIgnoreCase("sair")) ? -1 : 1;
+        } while (
+                !(resposta.equalsIgnoreCase("sim")
+                        || resposta.equalsIgnoreCase("nao")
+                        || resposta.equalsIgnoreCase("não")
+                        || resposta.equalsIgnoreCase("sair")
+                )
+        );
 
-            } while (
-                    !(resposta.equalsIgnoreCase("sim")
-                            || resposta.equalsIgnoreCase("nao")
-                            || resposta.equalsIgnoreCase("não")
-                            || resposta.equalsIgnoreCase("sair")
-                    )
-            );
+        if (exit == 1) {
 
-            if (exit == 1) {
-
+            if (resposta.equalsIgnoreCase("sim")) {
+                if (node.getLeaveRight().isEmpty()) {
+                    do {
+                        System.out.println("O animal que você pensou é " + node.getLeaveRight().getAnswer());
+                        System.out.println("Digite Sim ou Nao como resposta");
+                        scan.hasNextLine();
+                        resposta = scan.nextLine();
+                    } while (
+                            !(resposta.equalsIgnoreCase("sim")
+                                    || resposta.equalsIgnoreCase("nao")
+                                    || resposta.equalsIgnoreCase("não")
+                            )
+                    );
+                }
                 if (resposta.equalsIgnoreCase("sim")) {
                     if (node.getLeaveRight().isEmpty()) {
-                        do {
-                            System.out.println("O animal que você pensou é " + node.getLeaveRight().getAnswer());
-                            System.out.println("Digite Sim ou Nao como resposta");
-                            scan.hasNextLine();
-                            resposta = scan.nextLine();
-                        } while (
-                                !(resposta.equalsIgnoreCase("sim")
-                                        || resposta.equalsIgnoreCase("nao")
-                                        || resposta.equalsIgnoreCase("não")
-                                )
-                        );
-                    }
-                    if (resposta.equalsIgnoreCase("sim")) {
-                        if (node.getLeaveRight().isEmpty()) {
-                            System.out.println("Acertei de novo!");
-                        } else {
-                            node.Question(node.getLeaveRight());
-                        }
+                        System.out.println("Acertei de novo!");
                     } else {
-                        if (node.getLeaveLeft().isEmpty()) {
-                            node.insertNew(node.getLeaveRight());
-                        } else {
-                            node.Question(node.getLeaveRight());
-                        }
+                        node.Question(node.getLeaveRight(), root);
                     }
                 } else {
                     if (node.getLeaveLeft().isEmpty()) {
-                        do {
-                            System.out.println("O animal que você pensou é " + node.getLeaveLeft().getAnswer());
-                            System.out.println("Digite Sim ou Nao como resposta");
-                            scan.hasNextLine();
-                            resposta = scan.nextLine();
-                        } while (
-                                !(resposta.equalsIgnoreCase("sim")
-                                        || resposta.equalsIgnoreCase("nao")
-                                        || resposta.equalsIgnoreCase("não")
-                                        || resposta.equalsIgnoreCase("sair")
-                                )
-                        );
-                    }
-                    if (resposta.equalsIgnoreCase("sim")) {
-                        if (node.getLeaveLeft().isEmpty()) {
-                            System.out.println("Acertei de novo!");
-                        } else {
-                            node.Question(node.getLeaveLeft());
-                        }
+                        node.insertNew(node);
+
                     } else {
-                        if (node.getLeaveLeft().isEmpty()) {
-                            node.insertNewLeft(node.getLeaveLeft());
-                        } else {
-                            node.Question(node.getLeaveLeft());
+                        node.Question(node.getLeaveRight(), root);
+                    }
+                }
+            } else {
+                if (node.getLeaveLeft().isEmpty()) {
+                    do {
+                        System.out.println("O animal que você pensou é " + node.getLeaveLeft().getAnswer());
+                        System.out.println("Digite Sim ou Nao como resposta");
+                        scan.hasNextLine();
+                        resposta = scan.nextLine();
+                    } while (
+                            !(resposta.equalsIgnoreCase("sim")
+                                    || resposta.equalsIgnoreCase("nao")
+                                    || resposta.equalsIgnoreCase("não")
+                                    || resposta.equalsIgnoreCase("sair")
+                            )
+                    );
+                }
+                if (resposta.equalsIgnoreCase("sim")) {
+                    if (node.getLeaveLeft().isEmpty()) {
+                        System.out.println("Acertei de novo!");
+                        node.Question(root, null);
+
+                    } else {
+                        node.Question(node.getLeaveLeft(), root);
+                    }
+                } else {
+                    if (node.getLeaveLeft().isEmpty()) {
+                        node.insertNewLeft(node);
+                    } else {
+                        node.Question(node.getLeaveLeft(), root);
+                        if (!isRoot) {
                         }
+
                     }
                 }
             }
-
-            if(!isRoot){break;}
-        } while (exit == 1);
+        }
+        if (exit == 1) {
+            node.Question(root, null);
+        }
         return true;
     }
 
@@ -146,13 +152,13 @@ public class NodeBinary implements Serializable {
         String objetoString = scan.nextLine();
         System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getAnswer() + " não faz?");
         String questionString = scan.nextLine();
-        String aux = node.getAnswer();
-        node.setQuestion(questionString);
-        //seria uma visão alem do alcance
-        node.setLeaveRight(objetoString);
-        node.setLeaveLeft(aux);
-    }
 
+        NodeBinary nodeRight = node.getLeaveLeft();
+        String aux = nodeRight.getAnswer();
+        nodeRight.setQuestion(questionString);
+        nodeRight.setLeaveRight(objetoString);
+        nodeRight.setLeaveLeft(aux);
+    }
 
     public void insertNewLeft(NodeBinary node) {
         Scanner scan = new Scanner(System.in);
@@ -160,10 +166,12 @@ public class NodeBinary implements Serializable {
         String objetoString = scan.nextLine();
         System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getAnswer() + " não faz?");
         String questionString = scan.nextLine();
-        String aux = node.getAnswer();
-        node.setQuestion(questionString);
-        node.setLeaveRight(objetoString);
-        node.setLeaveLeft(aux);
+
+        NodeBinary nodeLeft = node.getLeaveLeft();
+        String aux = nodeLeft.getAnswer();
+        nodeLeft.setQuestion(questionString);
+        nodeLeft.setLeaveRight(objetoString);
+        nodeLeft.setLeaveLeft(aux);
     }
 
     public void setQuestion(String value) {

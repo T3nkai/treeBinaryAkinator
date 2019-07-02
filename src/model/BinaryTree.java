@@ -16,7 +16,8 @@ public class BinaryTree implements Serializable {
 
     public void Question(){
 
-       this.node.Question(node);
+       this.node.Question(node, null);
+
 
     }
 
