@@ -10,7 +10,7 @@ public class BinaryTree implements Serializable {
     public BinaryTree() {
         node = new NodeBinary("vive na agua", true);
         node.setLeaveRight("Baleia");
-        node.setLeaveLeft("Cahorro");
+        node.setLeaveLeft("Cachorro");
     }
 
 

@@ -52,7 +52,7 @@ public class NodeBinary implements Serializable {
     }
 
 
-    public boolean Question(NodeBinary node, NodeBinary root) {
+    public void Question(NodeBinary node, NodeBinary root) {
         if (root == null) {
             root = node;
         }
@@ -122,7 +122,6 @@ public class NodeBinary implements Serializable {
                 if (resposta.equalsIgnoreCase("sim")) {
                     if (node.getLeaveLeft().isEmpty()) {
                         System.out.println("Acertei de novo!");
-                        node.Question(root, null);
 
                     } else {
                         node.Question(node.getLeaveLeft(), root);
@@ -132,17 +131,11 @@ public class NodeBinary implements Serializable {
                         node.insertNewLeft(node);
                     } else {
                         node.Question(node.getLeaveLeft(), root);
-                        if (!isRoot) {
-                        }
 
                     }
                 }
             }
         }
-        if (exit == 1) {
-            node.Question(root, null);
-        }
-        return true;
     }
 
 
@@ -150,7 +143,7 @@ public class NodeBinary implements Serializable {
         Scanner scan = new Scanner(System.in);
         System.out.println("Qual o animal que você pensou?");
         String objetoString = scan.nextLine();
-        System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getAnswer() + " não faz?");
+        System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getLeaveRight().getAnswer() + " não faz?");
         String questionString = scan.nextLine();
 
         NodeBinary nodeRight = node.getLeaveLeft();
@@ -164,7 +157,7 @@ public class NodeBinary implements Serializable {
         Scanner scan = new Scanner(System.in);
         System.out.println("Qual o animal que você pensou?");
         String objetoString = scan.nextLine();
-        System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getAnswer() + " não faz?");
+        System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getLeaveLeft().getAnswer() + " não faz?");
         String questionString = scan.nextLine();
 
         NodeBinary nodeLeft = node.getLeaveLeft();
@@ -185,5 +178,13 @@ public class NodeBinary implements Serializable {
     public boolean isEmpty() {
         return this.getLeaveLeft() == null
                 || this.getLeaveRight() == null;
+    }
+
+    public boolean LeftIsEmpty() {
+        return this.getLeaveRight() == null;
+    }
+
+    public boolean RightIsEmpty() {
+        return this.getLeaveRight() == null;
     }
 }

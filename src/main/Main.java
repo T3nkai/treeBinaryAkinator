@@ -13,6 +13,9 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        Boolean exit = true;
+        String resposta = "";
         BinaryTree root = null;
         MapeamentoBinaryTree mapTree =  new MapeamentoBinaryTree();
         if(mapTree.get() == null) {
@@ -20,7 +23,14 @@ public class Main {
         }else{
             root = mapTree.get();
         }
-        root.Question();
+
+        do{
+            root.Question();
+            System.out.println("Digite Sim para Sair");
+            scan.hasNextLine();
+            resposta = scan.nextLine();
+
+        }while(!(resposta.equalsIgnoreCase("sim")));
         mapTree.put(root);
 
     }
