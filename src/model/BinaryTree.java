@@ -14,14 +14,7 @@ public class BinaryTree implements Serializable {
     }
 
 
-    public void Question(){
-
-       this.node.Question(node, null);
-
-
-    }
-
-    public int getCod() {
-        return this.cod;
+    public NodeBinary getRoot() {
+        return node;
     }
 }
