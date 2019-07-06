@@ -124,10 +124,10 @@ public class Main {
                                 scan = new Scanner(System.in);
                                 System.out.println("Qual o animal que você pensou?");
                                 String objetoString = scan.nextLine();
-                                System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getLeaveRight().getAnswer() + " não faz?");
+                                System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getLeaveLeft().getAnswer() + " não faz?");
                                 String questionString = scan.nextLine();
 
-                                node.insertNew(node.getLeaveRight(), objetoString, node.getLeaveRight().getAnswer(), questionString);
+                                node.insertNew(node.getLeaveLeft(), objetoString, node.getLeaveLeft().getAnswer(), questionString);
                                 resposta = "";
                                 exit = false;
                                 node = nodeRoot;
@@ -145,7 +145,7 @@ public class Main {
 
             } while (exit);
             if (!resposta.equalsIgnoreCase("sim")) {
-
+                mapTree.put(root);
                 System.out.println("Digite Sim para Sair");
                 scan.hasNextLine();
                 resposta = scan.nextLine();
@@ -155,7 +155,6 @@ public class Main {
             }
 
         } while (!(resposta.equalsIgnoreCase("sim")));
-        mapTree.put(root);
 
     }
 

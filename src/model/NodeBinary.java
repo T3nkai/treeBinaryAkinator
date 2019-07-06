@@ -51,35 +51,6 @@ public class NodeBinary implements Serializable {
         return this.leaveLeft;
     }
 
-
-//    public void insertNew(NodeBinary node) {
-//        Scanner scan = new Scanner(System.in);
-//        System.out.println("Qual o animal que você pensou?");
-//        String objetoString = scan.nextLine();
-//        System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getLeaveRight().getAnswer() + " não faz?");
-//        String questionString = scan.nextLine();
-//
-//        NodeBinary nodeRight = node.getLeaveLeft();
-//        String aux = nodeRight.getAnswer();
-//        nodeRight.setQuestion(questionString);
-//        nodeRight.setLeaveRight(objetoString);
-//        nodeRight.setLeaveLeft(aux);
-//    }
-//
-//    public void insertNewLeft(NodeBinary node) {
-//        Scanner scan = new Scanner(System.in);
-//        System.out.println("Qual o animal que você pensou?");
-//        String objetoString = scan.nextLine();
-//        System.out.println("Um(a) " + objetoString + " faz que o(a)" + node.getLeaveLeft().getAnswer() + " não faz?");
-//        String questionString = scan.nextLine();
-//
-//        NodeBinary nodeLeft = node.getLeaveLeft();
-//        String aux = nodeLeft.getAnswer();
-//        nodeLeft.setQuestion(questionString);
-//        nodeLeft.setLeaveRight(objetoString);
-//        nodeLeft.setLeaveLeft(aux);
-//    }
-
     public void insertNew(NodeBinary node, String animais, String animalPai, String questao) {
 
         NodeBinary newNodeLeft = new NodeBinary();
@@ -89,7 +60,6 @@ public class NodeBinary implements Serializable {
         newNodeRight.setAnswer(animais);
         newNodeLeft.setAnswer(animalPai);
         nodePai.setLeaves(newNodeLeft,newNodeRight);
-        System.out.println("");
     }
 
 
