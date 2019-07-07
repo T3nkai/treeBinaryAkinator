@@ -10,11 +10,14 @@ import java.util.Scanner;
 public class Main {
 
     /**
-     * algumas vezes  a persistencia nao funciona
-     *
      * @param args
      */
     public static void main(String[] args) {
+        System.out.println("Akinator - Árvore de decisão (simplificada)");
+        System.out.println("INE5609-03238A (20191) - Estruturas de Dados");
+        System.out.println("Prof. De Lucca");
+        System.out.println("Leandro da Silveira Dias");
+        System.out.println("Luiz Fernando de Souza");
         Scanner scan = new Scanner(System.in);
         Boolean exit = true;
         String resposta = "";
